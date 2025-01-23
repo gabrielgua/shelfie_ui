@@ -10,4 +10,12 @@ import { RouterView } from 'vue-router'
 html.dark {
   color-scheme: dark;
 }
+
+html.dark body {
+  background-color: var(--color-slate-950);
+}
+
+body {
+  background-color: var(--color-slate-100);
+}
 </style>
