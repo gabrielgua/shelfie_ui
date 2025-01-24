@@ -8,13 +8,12 @@ import Section from '@/components/Section.vue';
 
 
 <template>
-  <Section>
-    <h2 class="my-6 text-2xl">Home</h2>
+  <Section title="Home">
 
     <div class="flex items-center gap-6">
       <Card class="grow">
         <faicon icon="dollar" class="text-lg mb-4 text-teal-600" />
-        <p class="text-xs">Faturamento</p>
+        <p class="text-xs ">Faturamento</p>
         <p class="text-2xl font-semibold">R$ 32,894.00</p>
       </Card>
       <Card class="grow">

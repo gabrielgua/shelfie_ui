@@ -8,7 +8,14 @@ const router = createRouter({
       name: 'root',
       redirect: '/home',
       component: () => import('../views/DefaultView.vue'),
-      children: [{ path: '/home', name: 'home', component: () => import('../views/HomeView.vue') }],
+      children: [
+        { path: '/home', name: 'home', component: () => import('../views/HomeView.vue') },
+        {
+          path: '/products',
+          name: 'products',
+          component: () => import('../views/ProductView.vue'),
+        },
+      ],
     },
     { path: '/:pathMatch(.*)*', redirect: '/home' },
   ],

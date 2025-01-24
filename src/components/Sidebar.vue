@@ -13,7 +13,7 @@ const sidebarWidthCollapsed = 'min-w-[280px]';
     <Logo />
     <Divider />
 
-    <menu class="flex flex-col gap-2 h-full">
+    <menu class="flex flex-col gap-4 h-full">
 
       <p class="font-extrabold uppercase text-xs my-2 text-slate-950 dark:text-slate-100">Menu</p>
       <SidebarMenuLink title="Home" to="/home" icon="house" />
