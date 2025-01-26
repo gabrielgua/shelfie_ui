@@ -1,13 +1,7 @@
 <script lang="ts" setup>
 
-export type DataTableHeader = {
-  key: string,
-  label: string,
-}
-
 defineProps<{
-  headers: DataTableHeader[],
-  rows: any[]
+  headers: string[],
 }>();
 
 </script>
@@ -16,30 +10,13 @@ defineProps<{
   <table class="w-full text-sm bg-white dark:bg-slate-800 rounded-2xl">
     <thead class="border-b border-b-slate-100 dark:border-b-slate-600">
       <tr class="text-left">
-        <th v-for="header in headers" :key="header.key" class="p-4">{{ header.label }}</th>
-        <th class="p-4">Ações</th>
+        <th class="p-4" v-for="(header, index) in headers" :key="index">
+          {{ header }}
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(row, rIndex) in rows" :key="rIndex" :class="{ 'bg-slate-50 dark:bg-slate-900': rIndex % 2 === 0 }">
-        <td v-for="header in headers" :key="header.key" class="px-4 py-3">
-          {{ row[header.key] }}
-        </td>
-        <td class="px-4 py-3">
-          <div class="flex gap-2">
-            <button>
-              <faicon icon="pen" />
-            </button>
-            <button>
-              <faicon icon="trash" />
-            </button>
-            <button>
-              <faicon icon="exclamation" />
-            </button>
-          </div>
-        </td>
-      </tr>
-
+      <slot />
     </tbody>
     <tfoot class="border-t border-t-slate-100 dark:border-t-slate-600">
       <tr>
