@@ -4,6 +4,11 @@
 
 @theme {
   --color-primary: var(--color-sky-600);
+  --color-secondary: var(--color-slate-200);
+  --color-secondary-dark: var(--color-slate-700);
+
+  --color-success: var(--color-teal-500);
+  --color-danger: var(--color-rose-500);
 }
 
 :root {

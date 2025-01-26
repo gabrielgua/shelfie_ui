@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import Button, { type ButtonSize, type ButtonVariant } from './Button.vue';
+
+withDefaults(defineProps<{
+  size?: ButtonSize,
+  variant?: ButtonVariant,
+  icon: string
+}>(), {
+  size: 'normal',
+  variant: 'primary'
+});
+
+const buttonIconSizeStyles = new Map<ButtonSize, string>([
+  ['small', 'size-8.5 rounded-xl *:text-xs'],
+  ['normal', 'size-10 rounded-xl'],
+  ['large', 'size-11.5 rounded-2xl *:text-base!']
+])
+
+</script>
+
+<template>
+  <Button :variant="variant" :icon="icon" :class="[buttonIconSizeStyles.get(size)]" />
+
+</template>

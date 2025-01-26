@@ -1,18 +1,25 @@
 <script setup lang="ts">
+import Button from '@/components/Button.vue';
+import ButtonIcon from '@/components/ButtonIcon.vue';
 import Card from '@/components/Card.vue';
-import DataTable, { type DataTableHeader } from '@/components/DataTable.vue';
+import DataTable from '@/components/DataTable.vue';
+import DataTableActions from '@/components/DataTable/DataTableActions.vue';
+import DataTableColumn from '@/components/DataTable/DataTableColumn.vue';
+import DataTableRow from '@/components/DataTable/DataTableRow.vue';
+import DataTableHeader from '@/components/DataTable/DataTableRow.vue';
 import Section from '@/components/Section.vue';
 import { toCurrency } from '@/utils/currency.';
 import { formatDateDefault } from '@/utils/dates';
 import { computed } from 'vue';
 
-const tableHeaders: DataTableHeader[] = [
-  { key: 'id', label: '#' },
-  { key: 'sku', label: 'SKU' },
-  { key: 'name', label: 'Nome', },
-  { key: 'price', label: 'Preço' },
-  { key: 'createdAt', label: 'Criado' },
-  { key: 'updatedAt', label: 'Atualizado' },
+const tableHeaders = [
+  '#',
+  'SKU',
+  'Nome',
+  'Preço',
+  'Criado',
+  'Atualizado',
+  'Ações'
 ]
 
 const products = [{
@@ -70,14 +77,27 @@ const tableItems = computed(() => {
   <Section title="Produtos" class="flex flex-col gap-4">
 
 
-    <div class="flex items-center gap-4">
-      <button class="bg-primary p-3 px-4 text-sm flex items-center gap-3 rounded-2xl text-white">
-        Adicionar
-        <faicon icon="plus" />
-      </button>
+    <div class="flex items-center flex-wrap gap-4">
+      <Button icon="plus">Adicionar</Button>
       <input type="search" placeholder="Pesquisar..." class="text-sm bg-white rounded-xl p-3 ">
     </div>
-    <DataTable :headers="tableHeaders" :rows="tableItems" />
+    <DataTable :headers="tableHeaders">
+      <DataTableRow v-for="product in products">
+        <DataTableColumn>{{ product.id }}</DataTableColumn>
+        <DataTableColumn>{{ product.sku }}</DataTableColumn>
+        <DataTableColumn>{{ product.name }}</DataTableColumn>
+        <DataTableColumn>{{ toCurrency(product.price) }}</DataTableColumn>
+        <DataTableColumn>{{ formatDateDefault(new Date(product.createdAt)) }}</DataTableColumn>
+        <DataTableColumn>{{ formatDateDefault(new Date(product.updatedAt)) }}</DataTableColumn>
+        <DataTableActions>
+          <ButtonIcon variant="secondary" icon="cube" size="small" />
+          <ButtonIcon variant="primary" icon="pen" size="small" />
+          <ButtonIcon variant="danger" icon="trash" size="small" />
+
+        </DataTableActions>
+
+      </DataTableRow>
+    </DataTable>
   </Section>
 
 </template>

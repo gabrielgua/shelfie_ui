@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { useThemeStore } from '@/stores/theme.store';
 import { computed } from 'vue';
+import Button from './Button.vue';
+import ButtonIcon from './ButtonIcon.vue';
 
 const themeStore = useThemeStore();
 const isDark = computed(() => themeStore.isDark);
@@ -18,11 +20,7 @@ const isDark = computed(() => themeStore.isDark);
       </div>
     </div>
 
-    <button @click="themeStore.toggle()"
-      class="bg-slate-100 dark:bg-slate-700 cursor-pointer transition-all active:scale-95 p-2 grid place-items-center min-w-10 min-h-10 rounded-xl">
-      <faicon :icon="isDark ? 'sun' : 'moon'" class="text-sm" />
-    </button>
-
+    <ButtonIcon variant="secondary" @click="themeStore.toggle()" :icon="isDark ? 'sun' : 'moon'" />
 
   </header>
 
