@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="mt-10">
+  <div class="overflow-auto grow">
     <p class="mx-2 mb-4 text-lg">{{ title }}</p>
     <slot />
   </div>

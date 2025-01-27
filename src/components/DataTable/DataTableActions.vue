@@ -5,7 +5,7 @@ import DataTableColumn from './DataTableColumn.vue';
 
 <template>
   <DataTableColumn>
-    <div class="flex items-center justify-start flex-wrap gap-2">
+    <div class="flex items-center justify-start  gap-2">
       <slot />
     </div>
   </DataTableColumn>

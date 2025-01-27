@@ -8,7 +8,7 @@ import { RouterView } from 'vue-router';
 <template>
   <div class="flex h-dvh gap-6 p-4">
     <Sidebar />
-    <div class="w-full">
+    <div class="flex flex-col max-h-dvh size-full gap-6 ">
       <Header />
       <RouterView />
     </div>
