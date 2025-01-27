@@ -3,22 +3,25 @@ import Icon from './Icon.vue';
 withDefaults(defineProps<{
   icon?: string,
   size?: ButtonSize,
-  variant?: ButtonVariant
+  variant?: ButtonVariant,
+  disabled?: boolean,
 }>(), {
   size: 'normal',
-  variant: 'primary'
+  variant: 'primary',
+  disabled: false
 });
 
 export type ButtonSize = 'small' | 'normal' | 'large';
 export type ButtonVariant =
   'primary' | 'secondary' | 'success' | 'danger'
   | 'primary-outline' | 'secondary-outline' | 'success-outline' | 'danger-outline'
-  | 'primary-ghost' | 'secondary-ghost' | 'success-ghost' | 'danger-ghost' | 'custom';
+  | 'primary-ghost' | 'secondary-ghost' | 'success-ghost' | 'danger-ghost'
+  | 'primary-link' | 'secondary-link' | 'success-link' | 'danger-link' | 'custom';
 
 const buttonSizeStyles = new Map<ButtonSize, string>([
-  ['small', 'text-xs '],
-  ['normal', 'text-sm '],
-  ['large', 'text-base '],
+  ['small', 'text-xs py-2 px-3 rounded-xl'],
+  ['normal', 'text-sm py-2.5 px-3.5 rounded-xl'],
+  ['large', 'text-base py-3 px-4 rounded-2xl'],
 ])
 
 const buttonVariantStyles = new Map<ButtonVariant, string>([
@@ -37,6 +40,13 @@ const buttonVariantStyles = new Map<ButtonVariant, string>([
   ['success-ghost', 'hover:bg-success/20 text-success'],
   ['danger-ghost', 'hover:bg-danger/20 text-danger'],
 
+  ['primary-link', 'text-primary hover:underline'],
+  ['secondary-link', 'text-slate-800 dark:text-white hover:underline '],
+  ['success-link', 'text-success hover:underline'],
+  ['danger-link', 'text-danger hover:underline'],
+
+
+
   ['custom', '']
 ])
 
@@ -44,8 +54,9 @@ const buttonVariantStyles = new Map<ButtonVariant, string>([
 
 <template>
   <button
-    class="flex items-center justify-center rounded-2xl gap-3 p-3 px-4 active:scale-95 transition-all cursor-pointer hover:-translate-y-1"
-    :class="[buttonSizeStyles.get(size), buttonVariantStyles.get(variant)]">
+    class="flex items-center justify-center gap-3 active:scale-95 transition-all cursor-pointer hover:-translate-y-1"
+    :class="[buttonSizeStyles.get(size), buttonVariantStyles.get(variant), { 'opacity-50 hover:translate-none! active:scale-100! hover:no-underline! cursor-default!': disabled }]"
+    :disabled="disabled">
     <slot />
     <Icon v-if="icon" :icon="icon" size="small" />
   </button>

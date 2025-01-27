@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import Button from './Button.vue';
+import ButtonIcon from './ButtonIcon.vue';
+
 
 defineProps<{
   headers: string[],
@@ -18,25 +21,21 @@ defineProps<{
     <tbody>
       <slot />
     </tbody>
-    <tfoot class="border-t border-t-slate-100 dark:border-t-slate-600">
-      <tr>
-        <th :colspan="headers.length + 1">
-          <div class="p-4  flex items-center justify-end gap-6">
-            <button>
-              <faicon icon="arrow-left" />
-              Anterior
-            </button>
-            <button>1</button>
-            <button class="text-sky-600">2</button>
-            <button>3</button>
-            <button>
-              Próxima
-              <faicon icon="arrow-right" />
-            </button>
-          </div>
-        </th>
-      </tr>
-    </tfoot>
   </table>
+  <div class="p-2 bg-white dark:bg-slate-800 rounded-2xl max-w-max self-center">
+    <div class="flex items-center justify-center gap-2">
+      <ButtonIcon variant="secondary" icon="angles-left" />
+      <ButtonIcon variant="secondary" icon="angle-left" />
+
+      <Button variant="secondary-link">1</Button>
+
+      <Button variant="primary-link" disabled>
+        <p class="font-semibold">2</p>
+      </Button>
+      <Button variant="secondary-link">3</Button>
+      <ButtonIcon variant="secondary" icon="angle-right" />
+      <ButtonIcon variant="secondary" icon="angles-right" />
+    </div>
+  </div>
 
 </template>
