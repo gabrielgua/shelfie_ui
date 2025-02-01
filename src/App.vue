@@ -12,10 +12,10 @@ html.dark {
 }
 
 html.dark body {
-  background-color: var(--color-slate-950);
+  background-color: var(--color-slate-900);
 }
 
 body {
-  background-color: var(--color-slate-100);
+  background-color: var(--color-white);
 }
 </style>

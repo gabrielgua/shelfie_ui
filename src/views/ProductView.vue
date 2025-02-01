@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import Button from '@/components/Button.vue';
 import ButtonIcon from '@/components/ButtonIcon.vue';
-import DataTable from '@/components/DataTable.vue';
-import DataTableActions from '@/components/DataTable/DataTableActions.vue';
-import DataTableColumn from '@/components/DataTable/DataTableColumn.vue';
-import DataTableRow from '@/components/DataTable/DataTableRow.vue';
+import Icon from '@/components/Icon.vue';
+import Pagination from '@/components/Pagination.vue';
+import ProductList from '@/components/products/ProductList.vue';
+import SearchFilter from '@/components/SearchFilter.vue';
 import Section from '@/components/Section.vue';
-import { toCurrency } from '@/utils/currency.';
-import { formatDateDefault } from '@/utils/dates';
-import { computed } from 'vue';
+import type { Product } from '@/types/product';
+import { computed, ref } from 'vue';
 
 const tableHeaders = [
   '#',
@@ -20,21 +19,23 @@ const tableHeaders = [
   'Ações'
 ]
 
-const products = [{
+const search = ref('');
+
+const products: Product[] = [{
   id: 1,
   sku: "2025WAP-923784",
   name: "Detergente Limpa e Extrai 1 Litro",
   price: 41.89,
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
+  createdAt: new Date("2025-01-24T14:43:40Z"),
+  updatedAt: new Date("2025-01-24T14:43:40Z")
 },
 {
   id: 2,
   sku: "2025WAP-872390",
   name: "Anti odor WAP 500ml gatilho",
   price: 32.89,
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
+  createdAt: new Date("2025-01-24T14:43:40Z"),
+  updatedAt: new Date("2025-01-24T14:43:40Z")
 },
 {
   id: 3,
@@ -42,132 +43,58 @@ const products = [{
   name: "Detergente Limpe PRO 5 LITROS",
   price: 182.89,
   description: "Detergente muito bom...",
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
+  createdAt: new Date("2025-01-24T14:43:40Z"),
+  updatedAt: new Date("2025-01-24T14:43:40Z")
 },
 {
   id: 4,
   sku: "2025WAP-873451",
   name: "Anti odor WAP 500ml gatilho",
   price: 32.89,
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
-}, {
-  id: 2,
-  sku: "2025WAP-872390",
+  createdAt: new Date("2025-01-24T14:43:40Z"),
+  updatedAt: new Date("2025-01-24T14:43:40Z")
+},
+{
+  id: 4,
+  sku: "2025WAP-873451",
   name: "Anti odor WAP 500ml gatilho",
   price: 32.89,
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
-},
-{
-  id: 3,
-  sku: "2025WAP-302983",
-  name: "Detergente Limpe PRO 5 LITROS",
-  price: 182.89,
-  description: "Detergente muito bom...",
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
-},
-{
-  id: 3,
-  sku: "2025WAP-302983",
-  name: "Detergente Limpe PRO 5 LITROS",
-  price: 182.89,
-  description: "Detergente muito bom...",
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
-},
-{
-  id: 3,
-  sku: "2025WAP-302983",
-  name: "Detergente Limpe PRO 5 LITROS",
-  price: 182.89,
-  description: "Detergente muito bom...",
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
-},
-{
-  id: 3,
-  sku: "2025WAP-302983",
-  name: "Detergente Limpe PRO 5 LITROS",
-  price: 182.89,
-  description: "Detergente muito bom...",
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
-},
-{
-  id: 3,
-  sku: "2025WAP-302983",
-  name: "Detergente Limpe PRO 5 LITROS",
-  price: 182.89,
-  description: "Detergente muito bom...",
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
-},
-{
-  id: 3,
-  sku: "2025WAP-302983",
-  name: "Detergente Limpe PRO 5 LITROS",
-  price: 182.89,
-  description: "Detergente muito bom...",
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
-},
-{
-  id: 3,
-  sku: "2025WAP-302983",
-  name: "Detergente Limpe PRO 5 LITROS",
-  price: 182.89,
-  description: "Detergente muito bom...",
-  createdAt: "2025-01-24T14:43:40Z",
-  updatedAt: "2025-01-24T14:43:40Z"
+  createdAt: new Date("2025-01-24T14:43:40Z"),
+  updatedAt: new Date("2025-01-24T14:43:40Z")
 }
-
 ]
 
+const filteredProducts = computed(() => {
+  if (search.value === '') {
+    return products;
+  }
 
-const tableItems = computed(() => {
-  return products.map(product => {
-    const { price, createdAt, updatedAt, ...productShort } = product;
+  const searchTerm = search.value.toLocaleLowerCase().trim();
 
-    const formatedProduct = {
-      price: toCurrency(product.price),
-      createdAt: formatDateDefault(new Date(product.createdAt)),
-      updatedAt: formatDateDefault(new Date(product.updatedAt))
-    }
+  return products.filter(product => product.name.toLowerCase().includes(searchTerm) || product.sku.includes(searchTerm));
+})
 
-    return { ...productShort, ...formatedProduct };
-  })
-});
+const handleSearch = (searchTerm: string) => {
+  search.value = searchTerm;
+}
 
 </script>
 
 <template>
-  <Section title="Produtos" class="flex flex-col  gap-4">
-
-
-    <div class="flex items-center flex-wrap gap-4">
-      <Button icon="plus">Adicionar</Button>
-      <input type="search" placeholder="Pesquisar..." class="text-sm bg-white rounded-xl p-2.5 ">
+  <Section title="Produtos" class="flex flex-col gap-4 transition-all">
+    <div class="flex flex-col lg:flex-row items-center gap-2 transition-all">
+      <div class="flex w-full lg:w-[350px] items-center gap-2">
+        <SearchFilter @search="handleSearch" placeholder="Procurar por NOME, SKU..." />
+        <ButtonIcon icon="filter" variant="custom"
+          class="bg-white dark:bg-slate-800 text-secondary-dark dark:text-secondary" />
+      </div>
+      <Button class="w-full lg:w-max" variant="primary">
+        Adicionar
+        <Icon icon="plus" />
+      </Button>
+      <Pagination class="lg:ml-auto" />
     </div>
-    <DataTable :headers="tableHeaders">
-      <DataTableRow v-for="product in products">
-        <DataTableColumn>{{ product.id }}</DataTableColumn>
-        <DataTableColumn>{{ product.sku }}</DataTableColumn>
-        <DataTableColumn>{{ product.name }}</DataTableColumn>
-        <DataTableColumn>{{ toCurrency(product.price) }}</DataTableColumn>
-        <DataTableColumn>{{ formatDateDefault(new Date(product.createdAt)) }}</DataTableColumn>
-        <DataTableColumn>{{ formatDateDefault(new Date(product.updatedAt)) }}</DataTableColumn>
-        <DataTableActions>
-          <!-- <ButtonIcon variant="secondary" icon="cube" size="small" /> -->
-          <ButtonIcon variant="primary" icon="pen" size="small" />
-          <ButtonIcon variant="danger" icon="trash" size="small" />
-
-        </DataTableActions>
-
-      </DataTableRow>
-    </DataTable>
+    <ProductList :products="filteredProducts" />
   </Section>
 
 </template>

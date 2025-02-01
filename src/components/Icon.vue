@@ -11,7 +11,7 @@ export type IconSize = 'small' | 'normal' | 'large';
 const iconStyles = new Map<IconSize, string>([
   ['small', 'text-sm'],
   ['normal', 'text-base'],
-  ['large', 'text-lg'],
+  ['large', 'text-xl'],
 ])
 
 </script>

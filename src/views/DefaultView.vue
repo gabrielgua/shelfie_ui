@@ -6,13 +6,11 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div class="flex h-dvh gap-6 p-4">
+  <div class="flex h-dvh">
     <Sidebar />
-    <div class="flex flex-col max-h-dvh size-full gap-6 ">
+    <div class="flex flex-col gap-6 rounded-l-xl bg-slate-100 dark:bg-slate-950  max-h-dvh size-full">
       <Header />
       <RouterView />
     </div>
-
   </div>
-
 </template>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Icon from './Icon.vue';
 withDefaults(defineProps<{
-  icon?: string,
   size?: ButtonSize,
   variant?: ButtonVariant,
   disabled?: boolean,
+  noHoverTranslate?: boolean,
+  click?: () => void
 }>(), {
   size: 'normal',
   variant: 'primary',
@@ -26,7 +26,7 @@ const buttonSizeStyles = new Map<ButtonSize, string>([
 
 const buttonVariantStyles = new Map<ButtonVariant, string>([
   ['primary', 'bg-primary text-white'],
-  ['secondary', 'bg-secondary text-slate-900 dark:bg-secondary-dark dark:text-white'],
+  ['secondary', 'bg-secondary text-slate-900 dark:bg-secondary-dark/50 dark:text-white'],
   ['success', 'bg-success text-white'],
   ['danger', 'bg-danger text-white'],
 
@@ -45,19 +45,18 @@ const buttonVariantStyles = new Map<ButtonVariant, string>([
   ['success-link', 'text-success hover:underline'],
   ['danger-link', 'text-danger hover:underline'],
 
-
-
   ['custom', '']
 ])
 
 </script>
 
 <template>
-  <button
+  <button @click="click"
     class="flex items-center justify-center gap-3 active:scale-95 transition-all cursor-pointer hover:-translate-y-1"
-    :class="[buttonSizeStyles.get(size), buttonVariantStyles.get(variant), { 'opacity-50 hover:translate-none! active:scale-100! hover:no-underline! cursor-default!': disabled }]"
-    :disabled="disabled">
+    :class="[
+      buttonSizeStyles.get(size), buttonVariantStyles.get(variant),
+      { 'opacity-50 hover:translate-none! active:scale-100! hover:no-underline! cursor-default!': disabled },
+      { 'hover:translate-none!': noHoverTranslate }]" :disabled="disabled">
     <slot />
-    <Icon v-if="icon" :icon="icon" size="small" />
   </button>
 </template>

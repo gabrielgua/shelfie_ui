@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { useThemeStore } from '@/stores/theme.store';
 import { computed } from 'vue';
-import Button from './Button.vue';
 import ButtonIcon from './ButtonIcon.vue';
 
 const themeStore = useThemeStore();
 const isDark = computed(() => themeStore.isDark);
-</script>
+</script>s
 
 <template>
-  <header class="flex items-center justify-between bg-white dark:bg-slate-800 p-4 rounded-2xl">
+  <header class="flex items-center justify-between p-6 ">
     <div class="flex items-center gap-4">
       <div class="grid place-items-center rounded-full size-12 bg-sky-100 dark:bg-sky-950 ">
         <faicon icon="user" class="text-sky-900 text-xs" />
