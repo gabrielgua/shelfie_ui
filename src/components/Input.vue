@@ -35,7 +35,7 @@ const inputIconStyles = new Map<InputVariant, string>([
 <template>
   <div class="flex flex-col gap-2 grow">
     <div
-      class="flex items-center gap-4 text-sm bg-white dark:bg-slate-800 rounded-xl ring-1 ring-transparent hover:ring-secondary dark:hover:ring-secondary-dark focus-within:ring-2! focus-within:ring-primary! transition-all"
+      class="flex items-center gap-4 text-sm bg-white dark:bg-slate-800 rounded-xl ring-1 ring-transparent hover:ring-secondary dark:hover:ring-secondary-dark focus-within:ring-2! focus-within:ring-primary! transition-all shadow-xs"
       :class="{ 'ring-danger!': error }">
       <Icon v-if="iconStart" :icon="iconStart" size="small" class="ml-3"
         :class="inputIconStyles.get(iconStartVariant)" />

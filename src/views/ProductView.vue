@@ -9,16 +9,6 @@ import Section from '@/components/Section.vue';
 import type { Product } from '@/types/product';
 import { computed, ref } from 'vue';
 
-const tableHeaders = [
-  '#',
-  'SKU',
-  'Nome',
-  'Preço',
-  'Criado',
-  'Atualizado',
-  'Ações'
-]
-
 const search = ref('');
 
 const products: Product[] = [{
@@ -86,7 +76,7 @@ const handleSearch = (searchTerm: string) => {
       <div class="flex w-full lg:w-[350px] items-center gap-2">
         <SearchFilter @search="handleSearch" placeholder="Procurar por NOME, SKU..." />
         <ButtonIcon icon="filter" variant="custom"
-          class="bg-white dark:bg-slate-800 text-secondary-dark dark:text-secondary" />
+          class="bg-white dark:bg-slate-800 text-secondary-dark dark:text-secondary shadow-xs" />
       </div>
       <Button class="w-full lg:w-max" variant="primary">
         Adicionar

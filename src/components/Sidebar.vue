@@ -18,16 +18,16 @@ const sidebarStore = useSidebarStore();
   <aside
     class="flex flex-col gap-6 transition-all bg-white dark:bg-slate-900 rounded-r-2xl p-6 dark:text-slate-100 text-slate-900 "
     :class="[sidebarStore.isShrunken ? widthShrunken : widthExpanded]">
-    <div class="flex items-center relative transition-all " :class="{ 'flex-col gap-6': sidebarStore.isShrunken }">
+    <div class="flex items-center relative transition-all" :class="{ 'flex-col gap-6': sidebarStore.isShrunken }">
       <Logo :iconOnly="!sidebarStore.isShrunken" />
 
       <Transition name="pop-in" mode="out-in">
         <div class="grid w-full left-0 place-items-center" v-if="sidebarStore.isShrunken">
-          <ButtonIcon icon="angles-right" variant="primary-outline" size="small" :click="sidebarStore.toggle" />
+          <ButtonIcon icon="angles-right" variant="primary-ghost" size="small" :click="sidebarStore.toggle" />
         </div>
 
         <div class="grid w-full left-0 place-items-end" v-else>
-          <ButtonIcon icon="angles-left" variant="primary-outline" size="small" :click="sidebarStore.toggle" />
+          <ButtonIcon icon="angles-left" variant="primary-ghost" size="small" :click="sidebarStore.toggle" />
         </div>
       </Transition>
     </div>
@@ -43,7 +43,7 @@ const sidebarStore = useSidebarStore();
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Produtos" to="/products" icon="box-archive" />
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Vendas" to="/orders" icon="dollar" />
 
-      <Divider class="my-4 mt-auto" />
+      <Divider class="mt-auto" />
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Sobre" to="/about" icon="exclamation-circle" />
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Configurações" to="/settings" icon="cog" />
     </menu>
