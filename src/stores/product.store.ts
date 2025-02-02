@@ -9,17 +9,21 @@ export const useProductStore = defineStore('product', () => {
   const PRODUCTS_URL = '/products'
   const products = ref<Product[]>([])
 
-  const state = reactive({ loading: false, error: false, success: false })
+  const state = reactive({ loading: false, error: false, fetching: false })
 
   const { success, error } = useModalStore()
 
   const fetch = () => {
-    http
-      .get(PRODUCTS_URL)
-      .then((res) => {
-        products.value = res.data
-      })
-      .catch((e) => console.log(e))
+    state.fetching = true
+    setTimeout(() => {
+      http
+        .get(PRODUCTS_URL)
+        .then((res) => {
+          products.value = res.data
+        })
+        .catch((e) => console.log(e))
+        .finally(() => (state.fetching = false))
+    }, 500)
   }
 
   const edit = (productEdit: ProductEdit, productId: number) => {

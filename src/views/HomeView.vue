@@ -10,7 +10,7 @@ import Section from '@/components/Section.vue';
 <template>
   <Section title="Home">
 
-    <div class="flex items-center gap-6">
+    <div class="flex items-center flex-wrap gap-6">
       <Card class="grow">
         <faicon icon="dollar" class="text-lg mb-4 text-teal-600" />
         <p class="text-xs ">Faturamento</p>

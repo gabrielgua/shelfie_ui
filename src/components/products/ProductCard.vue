@@ -5,6 +5,7 @@ import { formatDateDefault } from '@/utils/dates';
 import Button from '../Button.vue';
 import ButtonIcon from '../ButtonIcon.vue';
 import ProductCardSection from './ProductCardSection.vue';
+import Icon from '../Icon.vue';
 
 withDefaults(defineProps<Product>(), {
   description: 'Sem descrição'
@@ -18,8 +19,10 @@ defineEmits(['edit']);
   <div
     class="flex flex-auto gap-6 items-center bg-white dark:bg-slate-900 shadow-xs p-4 rounded-xl flex-wrap xl:flex-nowrap transition-all">
 
-    <div class="min-w-[70px] min-h-[70px] max-h-[70px] max-w-[70px]">
-      <img :src="imageUrl" alt="product-image" class="rounded-xl size-full">
+    <div
+      class="min-w-[70px] min-h-[70px] max-h-[70px] max-w-[70px] bg-secondary dark:bg-slate-800 rounded-xl grid place-items-center">
+      <img v-if="imageUrl" :src="imageUrl" alt="product-image" class="rounded-xl size-full">
+      <Icon v-else icon="image" class="text-secondary-dark" />
     </div>
     <ProductCardSection label="NOME" :content="name" class="xl:max-w-[50%]">
       {{ description }}

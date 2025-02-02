@@ -45,7 +45,7 @@ const inputIconStyles = new Map<InputVariant, string>([
     <label :for="id" class="text-sm" v-if="label">{{ label }}</label>
 
     <div
-      class="flex items-center gap-4 text-sm bg-white dark:bg-slate-800 rounded-xl ring-1 ring-transparent hover:ring-secondary dark:hover:ring-secondary-dark focus-within:ring-2! focus-within:ring-primary! transition-all shadow-xs"
+      class="flex items-center gap-4 text-sm bg-white dark:bg-slate-800 rounded-xl ring-1 ring-transparent hover:ring-secondary dark:hover:ring-secondary-dark focus-within:ring-2! focus-within:ring-primary! transition-all"
       :class="[{ 'ring-danger!': error }, { 'bg-secondary hover:ring-transparent! focus-within:ring-transparent!': disabled }]">
       <Icon v-if="iconStart" :icon="iconStart" size="small" class="ml-3"
         :class="inputIconStyles.get(iconStartVariant)" />

@@ -11,6 +11,9 @@ import ProductList from "@/components/products/ProductList.vue";
 import RightSidebar from "@/components/RightSidebar.vue";
 import SearchFilter from "@/components/SearchFilter.vue";
 import Section from "@/components/Section.vue";
+import Spinner from "@/components/Spinner.vue";
+import PopInTransition from "@/components/transitions/PopInTransition.vue";
+import SlideInTransition from "@/components/transitions/SlideInTransition.vue";
 import { useProductStore } from "@/stores/product.store";
 import type { Product, ProductEdit, ProductRequest } from "@/types/product";
 import { computed, onMounted, ref } from "vue";
@@ -22,10 +25,8 @@ onMounted(() => {
 });
 
 const showProductFormSidebar = ref(false);
-
 const productStore = useProductStore();
 const products = computed(() => productStore.products);
-
 
 const product = ref<Product>({
   id: 0,
@@ -93,7 +94,8 @@ const getProductFormTitle = () => {
 </script>
 <template>
   <Section title="Produtos" class="flex flex-col gap-4 transition-all">
-    <div class="flex flex-col lg:flex-row items-center gap-2 transition-all">
+    <Spinner v-if="productStore.state.fetching" />
+    <div v-else class="flex flex-col lg:flex-row items-center gap-2 transition-all">
       <div class="flex w-full lg:w-[350px] items-center gap-2">
         <SearchFilter @search="handleSearch" placeholder="Procurar por NOME, SKU..." />
         <ButtonIcon icon="filter" variant="custom"
@@ -106,12 +108,14 @@ const getProductFormTitle = () => {
       <Divider class="my-2 lg:hidden" />
       <Pagination class="lg:ml-auto" />
     </div>
-    <ProductList @edit="handleEdit" :products="filteredProducts" />
+    <ProductList v-if="!productStore.state.fetching" @edit="handleEdit" :products="filteredProducts" />
+
+    <RightSidebar :show="showProductFormSidebar" @close="toggleProductFormSidebar()" :title="getProductFormTitle()">
+      <ProductForm :product="product" @submit="toggleProductFormSidebar()" />
+    </RightSidebar>
+
+    <ModalLoading :show="productStore.state.loading" />
   </Section>
 
-  <RightSidebar :show="showProductFormSidebar" @close="toggleProductFormSidebar()" :title="getProductFormTitle()">
-    <ProductForm :product="product" @submit="toggleProductFormSidebar()" />
-  </RightSidebar>
 
-  <ModalLoading :show="productStore.state.loading" />
 </template>
