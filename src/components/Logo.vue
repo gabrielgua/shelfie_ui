@@ -14,8 +14,7 @@ defineProps<{
     <PopInTransition>
 
       <p v-if="iconOnly" class="text-2xl uppercase dark:text-slate-100 text-slate-600 font-extrabold">
-        Shelf
-        <span class="italic text-lg font-bold">ie</span>
+        Shelf<span class="italic text-lg font-bold">ie</span>
       </p>
     </PopInTransition>
   </div>

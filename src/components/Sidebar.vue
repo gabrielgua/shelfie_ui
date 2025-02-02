@@ -1,12 +1,9 @@
 <script lang="ts" setup>
 import { useSidebarStore } from '@/stores/sidebar.store';
-import Button from './Button.vue';
+import ButtonIcon from './ButtonIcon.vue';
 import Divider from './Divider.vue';
 import Logo from './Logo.vue';
 import SidebarMenuLink from './SidebarMenuLink.vue';
-import { Transition } from 'vue';
-import Icon from './Icon.vue';
-import ButtonIcon from './ButtonIcon.vue';
 
 const widthExpanded = 'min-w-[280px]';
 const widthShrunken = 'min-w-[88px]';

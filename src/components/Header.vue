@@ -9,24 +9,20 @@ const isDark = computed(() => themeStore.isDark);
 
 <template>
   <header class="flex items-center justify-between gap-6 p-6">
-    <div class="flex items-center gap-4 px-3 py-3 rounded-2xl bg-white dark:bg-slate-900">
-      <div class="grid place-items-center rounded-full size-10 bg-sky-300 dark:bg-sky-800 ">
+    <div class="flex items-center w-full lg:w-max gap-4 px-3 py-3 rounded-2xl bg-white dark:bg-slate-900">
+      <div class="grid place-items-center rounded-full size-10 bg-sky-300 dark:bg-sky-800">
         <faicon icon="user" class="text-sky-900 dark:text-sky-300 text-xs" />
       </div>
       <div>
         <p class="text-xs">Bem-vindo,</p>
         <p class="font-semibold text-sm">Gabriel Guaitanele</p>
       </div>
-      <ButtonIcon variant="secondary-ghost" icon="chevron-down" no-hover-translate />
+      <ButtonIcon class="ml-auto lg:ml-0" variant="secondary" icon="chevron-down" size="small" />
     </div>
 
-    <div class="flex gap-2">
-
-      <ButtonIcon variant="secondary" @click="themeStore.toggle()" :icon="isDark ? 'sun' : 'moon'" />
-      <ButtonIcon variant="secondary" icon="power-off" no-hover-translate />
+    <div class="hidden lg:flex lg:gap-2">
+      <ButtonIcon variant="secondary" :click="() => themeStore.toggle()" :icon="isDark ? 'sun' : 'moon'" />
+      <ButtonIcon variant="secondary" icon="power-off" />
     </div>
-
-
   </header>
-
 </template>

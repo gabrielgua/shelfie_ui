@@ -1,67 +1,32 @@
 <script setup lang="ts">
 import Button from '@/components/Button.vue';
 import ButtonIcon from '@/components/ButtonIcon.vue';
+import Divider from '@/components/Divider.vue';
 import Icon from '@/components/Icon.vue';
 import Pagination from '@/components/Pagination.vue';
 import ProductList from '@/components/products/ProductList.vue';
 import SearchFilter from '@/components/SearchFilter.vue';
 import Section from '@/components/Section.vue';
-import type { Product } from '@/types/product';
-import { computed, ref } from 'vue';
+import { useProductStore } from '@/stores/product.store';
+import { computed, onMounted, ref } from 'vue';
 
 const search = ref('');
 
-const products: Product[] = [{
-  id: 1,
-  sku: "2025WAP-923784",
-  name: "Detergente Limpa e Extrai 1 Litro",
-  price: 41.89,
-  createdAt: new Date("2025-01-24T14:43:40Z"),
-  updatedAt: new Date("2025-01-24T14:43:40Z")
-},
-{
-  id: 2,
-  sku: "2025WAP-872390",
-  name: "Anti odor WAP 500ml gatilho",
-  price: 32.89,
-  createdAt: new Date("2025-01-24T14:43:40Z"),
-  updatedAt: new Date("2025-01-24T14:43:40Z")
-},
-{
-  id: 3,
-  sku: "2025WAP-302983",
-  name: "Detergente Limpe PRO 5 LITROS",
-  price: 182.89,
-  description: "Detergente muito bom...",
-  createdAt: new Date("2025-01-24T14:43:40Z"),
-  updatedAt: new Date("2025-01-24T14:43:40Z")
-},
-{
-  id: 4,
-  sku: "2025WAP-873451",
-  name: "Anti odor WAP 500ml gatilho",
-  price: 32.89,
-  createdAt: new Date("2025-01-24T14:43:40Z"),
-  updatedAt: new Date("2025-01-24T14:43:40Z")
-},
-{
-  id: 4,
-  sku: "2025WAP-873451",
-  name: "Anti odor WAP 500ml gatilho",
-  price: 32.89,
-  createdAt: new Date("2025-01-24T14:43:40Z"),
-  updatedAt: new Date("2025-01-24T14:43:40Z")
-}
-]
+onMounted(() => {
+  productStore.fetch()
+})
+
+const productStore = useProductStore();
+const products = computed(() => productStore.products);
 
 const filteredProducts = computed(() => {
   if (search.value === '') {
-    return products;
+    return products.value;
   }
 
   const searchTerm = search.value.toLocaleLowerCase().trim();
 
-  return products.filter(product => product.name.toLowerCase().includes(searchTerm) || product.sku.includes(searchTerm));
+  return products.value.filter(product => product.name.toLowerCase().includes(searchTerm) || product.sku.includes(searchTerm));
 })
 
 const handleSearch = (searchTerm: string) => {
@@ -82,9 +47,11 @@ const handleSearch = (searchTerm: string) => {
         Adicionar
         <Icon icon="plus" />
       </Button>
+      <Divider class="my-2 lg:hidden" />
       <Pagination class="lg:ml-auto" />
     </div>
     <ProductList :products="filteredProducts" />
-  </Section>
 
+
+  </Section>
 </template>

@@ -24,7 +24,7 @@ defineProps<{
 
 <style lang="css">
 div {
-  outline: 2px solid;
+  outline: 1px solid;
   outline-color: transparent;
 }
 
