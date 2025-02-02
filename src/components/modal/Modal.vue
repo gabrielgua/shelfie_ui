@@ -22,7 +22,7 @@ const close = () => {
     <Transition name="modal-backdrop">
       <div v-show="show" @click.self="close" class="size-full z-20 absolute top-0 bg-black/50 grid place-items-center">
         <Transition name="modal-content">
-          <div v-if="show" class="bg-white dark:bg-slate-800 w-[450px] rounded-2xl">
+          <div v-if="show" class="bg-white dark:bg-slate-800 w-[80%] md:w-[450px] rounded-2xl">
             <div v-if="header" class="p-4 flex items-center justify-between">
               <p class="text-lg ml-2">{{ title }}</p>
               <ButtonIcon :click="close" icon="xmark" variant="secondary" />

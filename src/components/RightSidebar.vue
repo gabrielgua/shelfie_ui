@@ -18,7 +18,7 @@ const close = () => emit('close');
     <Transition name="right-sidebar-backdrop">
       <div v-show="show" @click.self="close" class="absolute size-full z-10 top-0 bg-black/50 flex justify-end">
         <Transition name="right-sidebar-content">
-          <div v-if="show" class="bg-slate-100 w-full md:w-[500px] lg:w-[500px]">
+          <div v-if="show" class="bg-slate-100 dark:bg-slate-900 w-full md:w-[500px] lg:w-[500px]">
             <div class="flex items-center justify-between p-3 ps-6">
               <p class="text-lg">{{ title }}</p>
               <ButtonIcon :click="close" variant="secondary-ghost" icon="xmark" />

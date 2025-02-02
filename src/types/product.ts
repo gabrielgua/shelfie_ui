@@ -8,3 +8,21 @@ export type Product = {
   createdAt: string
   updatedAt: string
 }
+
+export type ProductEdit = {
+  sku?: string
+  name?: string
+  price?: number
+  imageUrl?: string
+  description?: string
+  minimumQuantity?: number
+}
+
+export type ProductRequest = {
+  sku: string
+  name: string
+  price: number
+  imageUrl?: string
+  description?: string
+  minimumQuantity?: number
+}

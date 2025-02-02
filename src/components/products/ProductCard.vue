@@ -18,14 +18,14 @@ defineEmits(['edit']);
   <div
     class="flex flex-auto gap-6 items-center bg-white dark:bg-slate-900 shadow-xs p-4 rounded-xl flex-wrap xl:flex-nowrap transition-all">
 
-    <div class="size-[70px]">
-      <img :src="imageUrl" alt="product-image" class="rounded-2xl">
+    <div class="min-w-[70px] min-h-[70px] max-h-[70px] max-w-[70px]">
+      <img :src="imageUrl" alt="product-image" class="rounded-xl size-full">
     </div>
-    <ProductCardSection label="NOME" :content="name">
+    <ProductCardSection label="NOME" :content="name" class="xl:max-w-[50%]">
       {{ description }}
     </ProductCardSection>
     <ProductCardSection label="sku" :content="sku" class="xl:ml-auto min-w-max" />
-    <ProductCardSection label="preço" :content="toCurrency(price)" class="xl:w-[15%]" />
+    <ProductCardSection label="preço" :content="toCurrency(price)" class="xl:w-[10%]" />
     <ProductCardSection label="registrado em" :content="formatDateDefault(new Date(createdAt))" />
     <ProductCardSection label="atualizado em" :content="formatDateDefault(new Date(updatedAt))" />
 
