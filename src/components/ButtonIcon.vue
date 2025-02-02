@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Button, { type ButtonSize, type ButtonVariant } from './Button.vue';
+import Button, { type ButtonHover, type ButtonSize, type ButtonVariant } from './Button.vue';
 import Icon from './Icon.vue';
 
 withDefaults(defineProps<{
   size?: ButtonSize,
   variant?: ButtonVariant,
   icon: string,
-  noHoverTranslate?: boolean,
+  hover?: ButtonHover
   click?: () => void
 }>(), {
   size: 'normal',
@@ -22,8 +22,7 @@ const buttonIconSizeStyles = new Map<ButtonSize, string>([
 </script>
 
 <template>
-  <Button :variant="variant" :click="click" :class="[buttonIconSizeStyles.get(size)]"
-    :noHoverTranslate="noHoverTranslate">
+  <Button :variant="variant" :click="click" :class="[buttonIconSizeStyles.get(size)]" :hover="hover">
     <Icon v-if="icon" :icon="icon" size="small" />
   </Button>
 

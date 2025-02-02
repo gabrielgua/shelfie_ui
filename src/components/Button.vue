@@ -3,20 +3,28 @@ withDefaults(defineProps<{
   size?: ButtonSize,
   variant?: ButtonVariant,
   disabled?: boolean,
-  noHoverTranslate?: boolean,
+  hover?: ButtonHover
   click?: () => void
 }>(), {
   size: 'normal',
   variant: 'primary',
+  hover: 'default',
   disabled: false
 });
 
+export type ButtonHover = 'default' | 'translate-up' | 'scale-up';
 export type ButtonSize = 'small' | 'normal' | 'large';
 export type ButtonVariant =
   'primary' | 'secondary' | 'success' | 'danger'
   | 'primary-outline' | 'secondary-outline' | 'success-outline' | 'danger-outline'
   | 'primary-ghost' | 'secondary-ghost' | 'success-ghost' | 'danger-ghost'
   | 'primary-link' | 'secondary-link' | 'success-link' | 'danger-link' | 'custom';
+
+const buttonHoverStyles = new Map<ButtonHover, string>([
+  ['default', ''],
+  ['translate-up', 'hover:-translate-y-1'],
+  ['scale-up', 'hover:scale-105'],
+]);
 
 const buttonSizeStyles = new Map<ButtonSize, string>([
   ['small', 'text-xs py-2 px-3 rounded-xl'],
@@ -51,12 +59,13 @@ const buttonVariantStyles = new Map<ButtonVariant, string>([
 </script>
 
 <template>
-  <button @click="click"
-    class="flex items-center justify-center gap-3 active:scale-95 transition-all cursor-pointer hover:-translate-y-1"
+  <button @click="click" class="flex items-center justify-center gap-3 active:scale-95 transition-all cursor-pointer"
     :class="[
-      buttonSizeStyles.get(size), buttonVariantStyles.get(variant),
+      buttonSizeStyles.get(size),
+      buttonVariantStyles.get(variant),
+      buttonHoverStyles.get(hover),
       { 'opacity-50 hover:translate-none! active:scale-100! hover:no-underline! cursor-default!': disabled },
-      { 'hover:translate-none!': noHoverTranslate }]" :disabled="disabled">
+    ]" :disabled="disabled">
     <slot />
   </button>
 </template>
