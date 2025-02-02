@@ -10,6 +10,8 @@ withDefaults(defineProps<Product>(), {
   description: 'Sem descrição'
 })
 
+defineEmits(['edit']);
+
 </script>
 
 <template>
@@ -28,7 +30,7 @@ withDefaults(defineProps<Product>(), {
     <ProductCardSection label="atualizado em" :content="formatDateDefault(new Date(updatedAt))" />
 
     <section class="flex gap-4 w-full xl:w-max">
-      <Button variant="secondary" class="grow">Editar</Button>
+      <Button variant="secondary" class="grow" :click="() => $emit('edit', id)">Editar</Button>
       <ButtonIcon icon="ellipsis" variant="secondary-ghost" />
     </section>
 

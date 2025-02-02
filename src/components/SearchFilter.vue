@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import Input from './Input.vue';
+import Input from './form/Input.vue';
 
 withDefaults(defineProps<{
   placeholder?: string

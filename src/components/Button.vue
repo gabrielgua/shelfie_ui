@@ -4,12 +4,14 @@ withDefaults(defineProps<{
   variant?: ButtonVariant,
   disabled?: boolean,
   hover?: ButtonHover
-  click?: () => void
+  click?: () => void,
+  submit?: boolean
 }>(), {
   size: 'normal',
   variant: 'primary',
   hover: 'default',
-  disabled: false
+  disabled: false,
+  submit: false,
 });
 
 export type ButtonHover = 'default' | 'translate-up' | 'scale-up';
@@ -59,8 +61,8 @@ const buttonVariantStyles = new Map<ButtonVariant, string>([
 </script>
 
 <template>
-  <button @click="click" class="flex items-center justify-center gap-3 active:scale-95 transition-all cursor-pointer"
-    :class="[
+  <button @click="click" :type="submit ? 'submit' : 'button'"
+    class="flex items-center justify-center gap-3 active:scale-95 transition-all cursor-pointer" :class="[
       buttonSizeStyles.get(size),
       buttonVariantStyles.get(variant),
       buttonHoverStyles.get(hover),

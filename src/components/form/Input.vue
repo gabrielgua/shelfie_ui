@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import type { InputTypeHTMLAttribute } from 'vue';
-import Icon from './Icon.vue';
+import Icon from '../Icon.vue';
 
-const model = defineModel<string>();
+const model = defineModel<string | number>();
 
 withDefaults(defineProps<{
+  id?: string,
   placeholder?: string,
-  type: InputTypeHTMLAttribute,
+  type?: InputTypeHTMLAttribute,
   disabled?: boolean,
   error?: boolean,
   errorMessage?: string,
@@ -14,9 +15,11 @@ withDefaults(defineProps<{
   iconEnd?: string,
   iconStartVariant?: InputVariant,
   iconEndVariant?: InputVariant,
+  label?: string,
 }>(), {
   disabled: false,
   error: false,
+  type: 'text',
   iconStartVariant: 'secondary',
   iconEndVariant: 'secondary'
 })
@@ -34,13 +37,15 @@ const inputIconStyles = new Map<InputVariant, string>([
 
 <template>
   <div class="flex flex-col gap-2 grow">
+    <label :for="id" class="text-sm" v-if="label">{{ label }}</label>
+
     <div
       class="flex items-center gap-4 text-sm bg-white dark:bg-slate-800 rounded-xl ring-1 ring-transparent hover:ring-secondary dark:hover:ring-secondary-dark focus-within:ring-2! focus-within:ring-primary! transition-all shadow-xs"
       :class="{ 'ring-danger!': error }">
       <Icon v-if="iconStart" :icon="iconStart" size="small" class="ml-3"
         :class="inputIconStyles.get(iconStartVariant)" />
-      <input class="py-2.5 outline-none w-full" v-model="model" :type="type" :disabled="disabled"
-        :placeholder="placeholder" />
+      <input :id="id" class="py-2.5 outline-none w-full" v-model="model" :type="type" :disabled="disabled"
+        :placeholder="placeholder" :class="[{ 'ps-2.5': !iconStart }, { 'pe-2.5': !iconEnd }]" />
       <Icon v-if="iconEnd" :icon="iconEnd" size="small" class="mr-3" :class="inputIconStyles.get(iconEndVariant)" />
     </div>
     <p v-if="error" class="text-xs text-danger">{{ errorMessage }}</p>
