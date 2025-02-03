@@ -8,9 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="overflow-y-auto flex flex-col gap-4 p-6 pt-0">
-    <p class="text-2xl text-secondary-dark dark:text-secondary">{{ title }}</p>
-    <Divider />
+  <div class="overflow-y-auto flex flex-col p-6 pt-8">
     <slot />
   </div>
 

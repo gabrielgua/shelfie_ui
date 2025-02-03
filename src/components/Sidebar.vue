@@ -13,10 +13,10 @@ const sidebarStore = useSidebarStore();
 
 <template>
   <aside
-    class="flex flex-col gap-6 transition-all bg-white dark:bg-slate-900 rounded-r-2xl p-6 dark:text-slate-100 text-slate-900 "
+    class="hidden lg:flex flex-col gap-16 transition-all bg-white dark:bg-slate-900 p-6 dark:text-slate-100 text-slate-900 "
     :class="[sidebarStore.isShrunken ? widthShrunken : widthExpanded]">
     <div class="flex items-center relative transition-all" :class="{ 'flex-col gap-6': sidebarStore.isShrunken }">
-      <Logo :iconOnly="!sidebarStore.isShrunken" />
+      <Logo :iconOnly="sidebarStore.isShrunken" />
 
       <Transition name="pop-in" mode="out-in">
         <div class="grid w-full left-0 place-items-center" v-if="sidebarStore.isShrunken">
@@ -29,7 +29,7 @@ const sidebarStore = useSidebarStore();
       </Transition>
     </div>
 
-    <Divider />
+    <!-- <Divider /> -->
 
 
     <menu class="flex flex-col gap-4 h-full transition-all">

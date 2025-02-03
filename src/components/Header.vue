@@ -1,28 +1,25 @@
 <script lang="ts" setup>
-import { useThemeStore } from '@/stores/theme.store';
-import { computed } from 'vue';
 import ButtonIcon from './ButtonIcon.vue';
+import HeaderPageInfo from './header/HeaderPageInfo.vue';
+import HeaderUserActions from './header/HeaderUserActions.vue';
+import Logo from './Logo.vue';
 
-const themeStore = useThemeStore();
-const isDark = computed(() => themeStore.isDark);
-</script>s
+
+</script>
 
 <template>
-  <header class="flex items-center justify-between gap-6 p-6">
-    <div class="flex items-center w-full lg:w-max gap-4 px-3 py-3 rounded-2xl bg-white dark:bg-slate-900">
-      <div class="grid place-items-center rounded-full size-10 bg-sky-300 dark:bg-sky-800">
-        <faicon icon="user" class="text-sky-900 dark:text-sky-300 text-xs" />
-      </div>
-      <div>
-        <p class="text-xs">Bem-vindo,</p>
-        <p class="font-semibold text-sm">Gabriel Guaitanele</p>
-      </div>
-      <ButtonIcon class="ml-auto lg:ml-0" variant="secondary" icon="chevron-down" size="small" />
+  <header>
+    <div class="bg-white dark:bg-slate-900 flex lg:hidden items-center gap-2 ps-2 p-4">
+      <ButtonIcon icon="bars" variant="secondary-ghost" size="large" />
+      <Logo />
+      <HeaderUserActions class="ms-auto" />
     </div>
 
-    <div class="hidden lg:flex lg:gap-2">
-      <ButtonIcon variant="secondary" :click="() => themeStore.toggle()" :icon="isDark ? 'sun' : 'moon'" />
-      <ButtonIcon variant="secondary" icon="power-off" />
-    </div>
+    <section class="flex items-center justify-between gap-6 p-6">
+      <HeaderPageInfo />
+      <div class="hidden lg:block">
+        <HeaderUserActions />
+      </div>
+    </section>
   </header>
 </template>

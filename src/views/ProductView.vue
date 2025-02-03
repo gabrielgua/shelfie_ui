@@ -93,7 +93,7 @@ const getProductFormTitle = () => {
 
 </script>
 <template>
-  <Section title="Produtos" class="flex flex-col gap-4 transition-all">
+  <Section title="Produtos" class="flex flex-col gap-6 transition-all">
     <Spinner v-if="productStore.state.fetching" />
     <div v-else class="flex flex-col lg:flex-row items-center gap-2 transition-all">
       <div class="flex w-full lg:w-[350px] items-center gap-2">
@@ -105,7 +105,7 @@ const getProductFormTitle = () => {
         Adicionar
         <Icon icon="plus" />
       </Button>
-      <Divider class="my-2 lg:hidden" />
+      <Divider class="my-4 lg:hidden" />
       <Pagination class="lg:ml-auto" />
     </div>
     <ProductList v-if="!productStore.state.fetching" @edit="handleEdit" :products="filteredProducts" />

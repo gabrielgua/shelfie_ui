@@ -32,9 +32,9 @@ defineEmits(['edit']);
     <ProductCardSection label="registrado em" :content="formatDateDefault(new Date(createdAt))" />
     <ProductCardSection label="atualizado em" :content="formatDateDefault(new Date(updatedAt))" />
 
-    <section class="flex gap-4 w-full xl:w-max">
-      <Button variant="secondary" class="grow" :click="() => $emit('edit', id)">Editar</Button>
-      <ButtonIcon icon="ellipsis" variant="secondary-ghost" />
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 w-full xl:w-max">
+      <Button variant="secondary" :click="() => $emit('edit', id)">Editar</Button>
+      <Button variant="danger-outline">Remover</Button>
     </section>
 
   </div>
