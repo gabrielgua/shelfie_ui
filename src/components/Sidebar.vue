@@ -29,13 +29,12 @@ const sidebarStore = useSidebarStore();
       </Transition>
     </div>
 
-    <!-- <Divider /> -->
-
-
     <menu class="flex flex-col gap-4 h-full transition-all">
 
-      <p class="font-extrabold uppercase text-xs my-2 text-slate-900 dark:text-slate-100"
-        v-if="!sidebarStore.isShrunken">Menu</p>
+      <!-- <p class="font-extrabold uppercase text-xs my-2 text-slate-900 dark:text-slate-100"
+        v-if="!sidebarStore.isShrunken">
+        Menu
+      </p> -->
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Home" to="/home" icon="house" />
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Produtos" to="/products" icon="box-archive" />
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Vendas" to="/orders" icon="dollar" />

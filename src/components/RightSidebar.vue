@@ -18,16 +18,15 @@ const close = () => emit('close');
     <Transition name="right-sidebar-backdrop">
       <div v-show="show" @click.self="close" class="absolute size-full z-10 top-0 bg-black/50 flex justify-end">
         <Transition name="right-sidebar-content">
-          <div v-if="show" class="bg-slate-100 dark:bg-slate-900 w-full md:w-[500px] lg:w-[500px]">
-            <div class="flex items-center justify-between p-3 ps-6">
-              <p class="text-lg">{{ title }}</p>
-              <ButtonIcon :click="close" variant="secondary-ghost" icon="xmark" />
-            </div>
-            <div class="px-6">
-              <Divider />
+          <div v-if="show"
+            class="bg-slate-100 overflow-auto dark:bg-slate-900 w-full self-end h-[80%] md:h-full md:w-[500px] shadow-2xl">
+            <div class="flex bg-white dark:bg-slate-800 items-center justify-between p-6">
+              <p class="text-xl">{{ title }}</p>
+              <ButtonIcon :click="close" variant="secondary" icon="xmark" size="small" />
             </div>
 
-            <div class="p-6">
+
+            <div class="p-6 grow overflow-y-auto">
               <slot />
             </div>
           </div>
