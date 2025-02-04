@@ -8,15 +8,18 @@ import Button from '../Button.vue';
 import Icon from '../Icon.vue';
 import ModalConfirm from '../modal/ModalConfirm.vue';
 import ProductCardSection from './ProductCardSection.vue';
+import ProductFormFloatingMenu from './ProductFormFloatingMenu.vue';
+import ProductForm from './ProductForm.vue';
+import { useProductStore } from '@/stores/product.store';
 
 const props = withDefaults(defineProps<Product>(), {
   description: 'Sem descrição'
 })
 
-const emit = defineEmits(['edit', 'remove']);
+const { remove } = useProductStore();
 
 const edit = () => {
-  emit('edit', props.id);
+  toggleProductFormSidebar();
 }
 
 
@@ -25,9 +28,11 @@ const toggleRemoveProductModal = useToggle(showRemoveProductModal);
 
 const handleRemoveConfirmed = () => {
   toggleRemoveProductModal();
-
-  //TODO: add remove product API call
+  remove(props.id);
 }
+
+const showProductFormSidebar = ref(false);
+const toggleProductFormSidebar = useToggle(showProductFormSidebar);
 
 
 
@@ -63,6 +68,9 @@ const handleRemoveConfirmed = () => {
       </p>
     </ModalConfirm>
 
+    <ProductFormFloatingMenu @close="toggleProductFormSidebar()" :show="showProductFormSidebar" title="Editar produto">
+      <ProductForm :product="props" @submit="toggleProductFormSidebar()" />
+    </ProductFormFloatingMenu>
 
   </div>
 </template>

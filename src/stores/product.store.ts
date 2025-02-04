@@ -62,6 +62,24 @@ export const useProductStore = defineStore('product', () => {
     }, 500)
   }
 
+  const remove = (productId: number) => {
+    state.loading = true
+    setTimeout(() => {
+      http
+        .delete(`${PRODUCTS_URL}/${productId}`)
+        .then(() => {
+          success('Produto removido.', `Produto removido com sucesso.`)
+          products.value = products.value.filter((p) => p.id !== productId)
+        })
+        .catch((e: AxiosError) => {
+          state.error = true
+          error('Erro ao remover.', e.message)
+          console.log(e)
+        })
+        .finally(() => (state.loading = false))
+    }, 500)
+  }
+
   const updateEditedProduct = (product: Product) => {
     const oldProduct = products.value.find((p) => p.id === product.id)
     if (oldProduct) {
@@ -74,5 +92,5 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  return { products, state, fetch, edit, save }
+  return { products, state, fetch, edit, save, remove }
 })

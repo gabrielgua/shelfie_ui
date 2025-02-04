@@ -6,29 +6,20 @@ import Icon from "@/components/Icon.vue";
 import ModalLoading from "@/components/modal/ModalLoading.vue";
 import Pagination from "@/components/Pagination.vue";
 import ProductForm from "@/components/products/ProductForm.vue";
+import ProductFormFloatingMenu from "@/components/products/ProductFormFloatingMenu.vue";
 import ProductList from "@/components/products/ProductList.vue";
 import SearchFilter from "@/components/SearchFilter.vue";
 import Section from "@/components/Section.vue";
-import FloatingSidebar from "@/components/FloatingMenu.vue";
 import Spinner from "@/components/Spinner.vue";
 import { useProductStore } from "@/stores/product.store";
 import type { Product } from "@/types/product";
-import { computed, onMounted, ref } from "vue";
-import ModalConfirm from "@/components/modal/ModalConfirm.vue";
 import { useToggle } from "@vueuse/core";
+import { computed, onMounted, ref } from "vue";
 
-const search = ref("");
 
 onMounted(() => {
   productStore.fetch();
 });
-
-const showProductFormSidebar = ref(false);
-
-const toggleProductFormSidebar = useToggle(showProductFormSidebar);
-
-const productStore = useProductStore();
-const products = computed(() => productStore.products);
 
 const product = ref<Product>({
   id: 0,
@@ -40,6 +31,12 @@ const product = ref<Product>({
   createdAt: "",
   updatedAt: "",
 });
+const search = ref("");
+const showProductFormSidebar = ref(false);
+const toggleProductFormSidebar = useToggle(showProductFormSidebar);
+
+const productStore = useProductStore();
+const products = computed(() => productStore.products);
 
 const filteredProducts = computed(() => {
   if (search.value === "") {
@@ -58,39 +55,6 @@ const handleSearch = (searchTerm: string) => {
   search.value = searchTerm;
 };
 
-const handleEdit = (oldProduct: Product) => {
-  product.value.id = oldProduct.id;
-  product.value.sku = oldProduct.sku;
-  product.value.name = oldProduct.name;
-  product.value.price = oldProduct.price;
-  product.value.description = oldProduct.description;
-  product.value.createdAt = oldProduct.createdAt;
-  product.value.updatedAt = oldProduct.updatedAt;
-  product.value.imageUrl = oldProduct.imageUrl;
-
-  toggleProductFormSidebar();
-};
-
-const handleAdd = () => {
-  product.value.id = 0;
-  product.value.sku = "";
-  product.value.name = "";
-  product.value.price = 0;
-  product.value.description = "";
-  product.value.imageUrl = "";
-  product.value.createdAt = "";
-  product.value.updatedAt = "";
-
-  toggleProductFormSidebar();
-};
-
-
-
-
-
-const getProductFormTitle = () => {
-  return `${product.value.id !== 0 ? 'Editar' : 'Adicionar'} produto`;
-}
 
 </script>
 <template>
@@ -100,30 +64,22 @@ const getProductFormTitle = () => {
       <div class="flex w-full lg:w-[350px] items-center gap-2">
         <SearchFilter @search="handleSearch" placeholder="Procurar por NOME, SKU..." />
         <ButtonIcon icon="filter" variant="custom"
-          class="bg-white dark:bg-slate-800 text-secondary-dark dark:text-secondary shadow-xs" />
+          class="bg-white dark:bg-slate-800 text-secondary-dark dark:text-secondary shadow-2xs" />
       </div>
-      <Button :click="handleAdd" class="w-full lg:w-max" variant="primary">
+      <Button :click="() => toggleProductFormSidebar()" class="w-full lg:w-max" variant="primary">
         Adicionar
         <Icon icon="plus" />
       </Button>
       <Divider class="my-4 lg:hidden" />
       <Pagination class="lg:ml-auto" />
     </div>
-    <ProductList v-if="!productStore.state.fetching" @edit="handleEdit" :products="filteredProducts" />
+    <ProductList v-if="!productStore.state.fetching" :products="filteredProducts" />
 
-    <FloatingSidebar align="end" mobileAlign="bottom" :show="showProductFormSidebar"
+    <ProductFormFloatingMenu :show="showProductFormSidebar" title="Adicionar produto"
       @close="toggleProductFormSidebar()">
-      <template #title>
-        <p class="text-xl">
-          {{ getProductFormTitle() }}
-        </p>
-      </template>
       <ProductForm :product="product" @submit="toggleProductFormSidebar()" />
-    </FloatingSidebar>
+    </ProductFormFloatingMenu>
 
     <ModalLoading :show="productStore.state.loading" />
-
   </Section>
-
-
 </template>
