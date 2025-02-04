@@ -39,8 +39,7 @@ const changeTheme = () => {
       <ButtonIcon variant="secondary-ghost" :click="() => themeStore.toggle()" :icon="isDark ? 'sun' : 'moon'" />
     </div>
 
-    <FloatingMenu :show="showUserActionsSidebar" title="Preferências" @close="toggleUserActionSidebar()" align="end"
-      mobile-align="same">
+    <FloatingMenu :show="showUserActionsSidebar" @close="toggleUserActionSidebar()" align="end" mobile-align="same">
       <template #title>
         <p class="text-xl">Configurações rápidas</p>
       </template>

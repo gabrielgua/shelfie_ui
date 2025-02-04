@@ -25,7 +25,7 @@ const getEnterFromLeaveToStyles = () => {
 }
 
 const getAlignmentStyles = () => {
-  return props.mobileAlign === 'bottom' ? 'self-end w-full md:h-full h-[80%]' : 'h-full w-[80%]';
+  return props.mobileAlign === 'bottom' ? 'self-end w-full md:h-full h-[90%]' : 'h-full w-[90%]';
 }
 
 
@@ -46,7 +46,6 @@ const getAlignmentStyles = () => {
               </slot>
               <ButtonIcon :click="close" variant="secondary" icon="xmark" size="small" />
             </div>
-
             <div class="p-6 grow overflow-y-auto">
               <slot />
             </div>

@@ -1,10 +1,5 @@
 <script lang="ts" setup>
-import Divider from './Divider.vue';
 
-defineProps<{
-  title: string
-
-}>()
 </script>
 
 <template>

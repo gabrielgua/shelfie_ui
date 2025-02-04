@@ -90,7 +90,7 @@ const getProductFormTitle = () => {
 
 </script>
 <template>
-  <Section title="Produtos" class="flex flex-col gap-6 transition-all">
+  <Section class="flex flex-col gap-6 transition-all">
     <Spinner v-if="productStore.state.fetching" />
     <div v-else class="flex flex-col lg:flex-row items-center gap-2 transition-all">
       <div class="flex w-full lg:w-[350px] items-center gap-2">
@@ -107,8 +107,13 @@ const getProductFormTitle = () => {
     </div>
     <ProductList v-if="!productStore.state.fetching" @edit="handleEdit" :products="filteredProducts" />
 
-    <FloatingSidebar align="end" mobileAlign="bottom" :show="showProductFormSidebar" @close="toggleProductFormSidebar()"
-      :title="getProductFormTitle()">
+    <FloatingSidebar align="end" mobileAlign="bottom" :show="showProductFormSidebar"
+      @close="toggleProductFormSidebar()">
+      <template #title>
+        <p class="text-xl">
+          {{ getProductFormTitle() }}
+        </p>
+      </template>
       <ProductForm :product="product" @submit="toggleProductFormSidebar()" />
     </FloatingSidebar>
 
