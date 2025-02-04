@@ -2,20 +2,17 @@
 import Button from "@/components/Button.vue";
 import ButtonIcon from "@/components/ButtonIcon.vue";
 import Divider from "@/components/Divider.vue";
-import Input from "@/components/form/Input.vue";
 import Icon from "@/components/Icon.vue";
 import ModalLoading from "@/components/modal/ModalLoading.vue";
 import Pagination from "@/components/Pagination.vue";
 import ProductForm from "@/components/products/ProductForm.vue";
 import ProductList from "@/components/products/ProductList.vue";
-import RightSidebar from "@/components/RightSidebar.vue";
 import SearchFilter from "@/components/SearchFilter.vue";
 import Section from "@/components/Section.vue";
+import FloatingSidebar from "@/components/FloatingMenu.vue";
 import Spinner from "@/components/Spinner.vue";
-import PopInTransition from "@/components/transitions/PopInTransition.vue";
-import SlideInTransition from "@/components/transitions/SlideInTransition.vue";
 import { useProductStore } from "@/stores/product.store";
-import type { Product, ProductEdit, ProductRequest } from "@/types/product";
+import type { Product } from "@/types/product";
 import { computed, onMounted, ref } from "vue";
 
 const search = ref("");
@@ -110,9 +107,10 @@ const getProductFormTitle = () => {
     </div>
     <ProductList v-if="!productStore.state.fetching" @edit="handleEdit" :products="filteredProducts" />
 
-    <RightSidebar :show="showProductFormSidebar" @close="toggleProductFormSidebar()" :title="getProductFormTitle()">
+    <FloatingSidebar align="end" mobileAlign="bottom" :show="showProductFormSidebar" @close="toggleProductFormSidebar()"
+      :title="getProductFormTitle()">
       <ProductForm :product="product" @submit="toggleProductFormSidebar()" />
-    </RightSidebar>
+    </FloatingSidebar>
 
     <ModalLoading :show="productStore.state.loading" />
   </Section>

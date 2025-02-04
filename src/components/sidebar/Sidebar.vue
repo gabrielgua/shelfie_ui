@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { useSidebarStore } from '@/stores/sidebar.store';
-import ButtonIcon from './ButtonIcon.vue';
-import Divider from './Divider.vue';
-import Logo from './Logo.vue';
-import SidebarMenuLink from './SidebarMenuLink.vue';
+import ButtonIcon from '../ButtonIcon.vue';
+import Divider from '../Divider.vue';
+import Logo from '../Logo.vue';
+import SidebarMenuLink from '../SidebarMenuLink.vue';
 
 const widthExpanded = 'min-w-[280px]';
 const widthShrunken = 'min-w-[88px]';
@@ -31,10 +31,10 @@ const sidebarStore = useSidebarStore();
 
     <menu class="flex flex-col gap-4 h-full transition-all">
 
-      <!-- <p class="font-extrabold uppercase text-xs my-2 text-slate-900 dark:text-slate-100"
+      <p class="font-extrabold uppercase text-xs my-2 text-slate-900 dark:text-slate-100"
         v-if="!sidebarStore.isShrunken">
         Menu
-      </p> -->
+      </p>
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Home" to="/home" icon="house" />
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Produtos" to="/products" icon="box-archive" />
       <SidebarMenuLink :icon-only="sidebarStore.isShrunken" title="Vendas" to="/orders" icon="dollar" />

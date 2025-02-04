@@ -2,7 +2,7 @@
 import Divider from '@/components/Divider.vue';
 import Header from '@/components/Header.vue';
 import ModalAlert from '@/components/modal/ModalAlert.vue';
-import Sidebar from '@/components/Sidebar.vue';
+import Sidebar from '@/components/sidebar/Sidebar.vue';
 import { RouterView } from 'vue-router';
 
 </script>
