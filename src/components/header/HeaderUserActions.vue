@@ -6,13 +6,22 @@ import FloatingMenu from '../FloatingMenu.vue';
 import { useToggle } from '@vueuse/core';
 import Button from '../Button.vue';
 import Icon from '../Icon.vue';
-import Divider from '../Divider.vue';
 import Avatar from '../Avatar.vue';
 const themeStore = useThemeStore();
 const isDark = computed(() => themeStore.isDark);
 
 const showUserActionsSidebar = ref(false);
 const toggleUserActionSidebar = useToggle(showUserActionsSidebar);
+
+const handleSideMenuClick = () => {
+  toggleUserActionSidebar();
+}
+
+const changeTheme = () => {
+  handleSideMenuClick();
+  themeStore.toggle();
+}
+
 </script>
 
 <template>
@@ -30,21 +39,12 @@ const toggleUserActionSidebar = useToggle(showUserActionsSidebar);
       <ButtonIcon variant="secondary-ghost" :click="() => themeStore.toggle()" :icon="isDark ? 'sun' : 'moon'" />
     </div>
 
-    <FloatingMenu :show="showUserActionsSidebar" title="Preferências" @close="toggleUserActionSidebar()" align="end">
+    <FloatingMenu :show="showUserActionsSidebar" title="Preferências" @close="toggleUserActionSidebar()" align="end"
+      mobile-align="same">
       <template #title>
         <p class="text-xl">Configurações rápidas</p>
       </template>
       <div class="flex flex-col gap-6">
-        <section class="flex items-center gap-6">
-          <Avatar />
-          <div>
-            <p class="text-xs">Bem-vindo,</p>
-            <p class="font-semibold text-sm">Gabriel Guaitanele</p>
-          </div>
-        </section>
-
-        <Divider />
-
         <section class="flex flex-col gap-4">
           <Button variant="secondary" class="w-full justify-start!">
             <Icon icon="user" />
@@ -54,9 +54,9 @@ const toggleUserActionSidebar = useToggle(showUserActionsSidebar);
             <Icon icon="cog" />
             Configurações
           </Button>
-          <Button variant="secondary" class="w-full justify-start!">
-            <Icon icon="sun" />
-            Tema claro
+          <Button :click="changeTheme" variant="secondary" class="w-full justify-start!">
+            <Icon :icon="isDark ? 'sun' : 'moon'" />
+            Tema {{ isDark ? 'claro' : 'escuro' }}
           </Button>
           <Button variant="secondary" class="w-full justify-start!">
             <Icon icon="power-off" />
