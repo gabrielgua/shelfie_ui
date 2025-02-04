@@ -14,6 +14,8 @@ import Spinner from "@/components/Spinner.vue";
 import { useProductStore } from "@/stores/product.store";
 import type { Product } from "@/types/product";
 import { computed, onMounted, ref } from "vue";
+import ModalConfirm from "@/components/modal/ModalConfirm.vue";
+import { useToggle } from "@vueuse/core";
 
 const search = ref("");
 
@@ -22,6 +24,9 @@ onMounted(() => {
 });
 
 const showProductFormSidebar = ref(false);
+
+const toggleProductFormSidebar = useToggle(showProductFormSidebar);
+
 const productStore = useProductStore();
 const products = computed(() => productStore.products);
 
@@ -80,9 +85,8 @@ const handleAdd = () => {
 };
 
 
-const toggleProductFormSidebar = () => {
-  showProductFormSidebar.value = !showProductFormSidebar.value;
-};
+
+
 
 const getProductFormTitle = () => {
   return `${product.value.id !== 0 ? 'Editar' : 'Adicionar'} produto`;
@@ -118,6 +122,7 @@ const getProductFormTitle = () => {
     </FloatingSidebar>
 
     <ModalLoading :show="productStore.state.loading" />
+
   </Section>
 
 

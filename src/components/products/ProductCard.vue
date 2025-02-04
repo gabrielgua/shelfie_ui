@@ -2,16 +2,34 @@
 import type { Product } from '@/types/product';
 import { toCurrency } from '@/utils/currency.';
 import { formatDateDefault } from '@/utils/dates';
+import { useToggle } from '@vueuse/core';
+import { ref } from 'vue';
 import Button from '../Button.vue';
-import ButtonIcon from '../ButtonIcon.vue';
-import ProductCardSection from './ProductCardSection.vue';
 import Icon from '../Icon.vue';
+import ModalConfirm from '../modal/ModalConfirm.vue';
+import ProductCardSection from './ProductCardSection.vue';
 
-withDefaults(defineProps<Product>(), {
+const props = withDefaults(defineProps<Product>(), {
   description: 'Sem descrição'
 })
 
-defineEmits(['edit']);
+const emit = defineEmits(['edit', 'remove']);
+
+const edit = () => {
+  emit('edit', props.id);
+}
+
+
+const showRemoveProductModal = ref(false);
+const toggleRemoveProductModal = useToggle(showRemoveProductModal);
+
+const handleRemoveConfirmed = () => {
+  toggleRemoveProductModal();
+
+  //TODO: add remove product API call
+}
+
+
 
 </script>
 
@@ -33,9 +51,18 @@ defineEmits(['edit']);
     <ProductCardSection label="atualizado em" :content="formatDateDefault(new Date(updatedAt))" />
 
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 w-full xl:w-max">
-      <Button variant="secondary" :click="() => $emit('edit', id)">Editar</Button>
-      <Button variant="danger-outline">Remover</Button>
+      <Button variant="secondary" :click="edit">Editar</Button>
+      <Button variant="danger-outline" :click="() => toggleRemoveProductModal()">Remover</Button>
     </section>
+
+    <ModalConfirm :show="showRemoveProductModal" @close="toggleRemoveProductModal()" @confirm="handleRemoveConfirmed"
+      confirm-text="Remover" confirm-variant="danger" confirm-icon="trash">
+      <p class="font-semibold mb-4">Remover o produto?</p>
+      <p class="text-sm font-light">
+        Isso removerá o produto, seu histórico de vendas e estoque, completamente.
+      </p>
+    </ModalConfirm>
+
 
   </div>
 </template>
