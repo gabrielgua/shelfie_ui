@@ -81,9 +81,8 @@ const isValid = computed(() => {
     <div>
       <p class="text-sm">Imagem</p>
       <div class="flex items-center gap-4 mt-2">
-        <div
-          class="grid place-items-center w-[120px] h-[120px] bg-white dark:bg-slate-800 p-2 rounded-2xl overflow-hidden">
-          <img v-if="imageUrl" :src="imageUrl" class="size-full rounded-xl" />
+        <div class="grid place-items-center bg-white dark:bg-slate-800 rounded-2xl overflow-hidden">
+          <img v-if="imageUrl" :src="imageUrl" class="w-[120px] h-[120px] rounded-xl object-top object-cover" />
           <Icon v-else icon="image" size="large" class="text-secondary dark:text-secondary-dark" />
         </div>
 

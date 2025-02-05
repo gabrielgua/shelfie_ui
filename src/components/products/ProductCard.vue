@@ -44,7 +44,8 @@ const toggleProductFormSidebar = useToggle(showProductFormSidebar);
 
     <div
       class="min-w-[70px] min-h-[70px] max-h-[70px] max-w-[70px] bg-secondary dark:bg-slate-800 rounded-xl grid place-items-center">
-      <img v-if="imageUrl" :src="imageUrl" alt="product-image" class="rounded-xl size-full">
+      <img v-if="imageUrl" :src="imageUrl" alt="product-image"
+        class="rounded-xl size-full max-h-[70px] object-top object-cover">
       <Icon v-else icon="image" class="text-secondary-dark" />
     </div>
     <ProductCardSection label="NOME" :content="name" class="xl:max-w-[50%]">
