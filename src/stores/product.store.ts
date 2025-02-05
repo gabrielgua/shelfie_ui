@@ -89,6 +89,8 @@ export const useProductStore = defineStore('product', () => {
       oldProduct.imageUrl = product.imageUrl
       oldProduct.description = product.description
       oldProduct.updatedAt = product.updatedAt
+      oldProduct.category = product.category
+      oldProduct.brand = product.brand
     }
   }
 

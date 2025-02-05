@@ -48,15 +48,18 @@ const toggleProductFormSidebar = useToggle(showProductFormSidebar);
         class="rounded-xl size-full max-h-[70px] object-top object-cover">
       <Icon v-else icon="image" class="text-secondary-dark" />
     </div>
-    <ProductCardSection label="NOME" :content="name" class="xl:max-w-[50%]">
+    <ProductCardSection label="NOME" :content="name" class="xl:max-w-[50%]" bold="true">
       {{ description }}
     </ProductCardSection>
     <ProductCardSection label="sku" :content="sku" class="xl:ml-auto min-w-max" />
+    <ProductCardSection label="Marca" :content="brand.name" bold="true" />
+    <ProductCardSection label="Categoria" :content="category.name" />
+
     <ProductCardSection label="preço" :content="toCurrency(price)" class="xl:w-[10%]" />
     <ProductCardSection label="registrado em" :content="formatDateDefault(new Date(createdAt))" />
     <ProductCardSection label="atualizado em" :content="formatDateDefault(new Date(updatedAt))" />
 
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 w-full xl:w-max">
+    <section class="grid grid-cols-1 sm:grid-cols-2 xl:flex gap-2 lg:gap-4 w-full xl:w-max">
       <Button variant="secondary" :click="edit">Editar</Button>
       <Button variant="danger-outline" :click="() => toggleRemoveProductModal()">Remover</Button>
     </section>

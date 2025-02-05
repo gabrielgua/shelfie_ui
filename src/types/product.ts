@@ -1,8 +1,13 @@
+import type { Brand } from './brand'
+import type { Category } from './category'
+
 export type Product = {
   id: number
   sku: string
   name: string
-  imageUrl: string
+  imageUrl?: string
+  brand: Brand
+  category: Category
   price: number
   description?: string
   createdAt: string
@@ -16,6 +21,8 @@ export type ProductEdit = {
   imageUrl?: string
   description?: string
   minimumQuantity?: number
+  brandId?: number
+  categoryId?: number
 }
 
 export type ProductRequest = {
@@ -25,4 +32,6 @@ export type ProductRequest = {
   imageUrl?: string
   description?: string
   minimumQuantity?: number
+  brandId?: number
+  categoryId?: number
 }

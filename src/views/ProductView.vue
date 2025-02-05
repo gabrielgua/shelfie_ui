@@ -23,14 +23,17 @@ onMounted(() => {
 
 const product = ref<Product>({
   id: 0,
-  sku: "",
-  name: "",
+  sku: '',
+  name: '',
   price: 0,
-  imageUrl: "",
-  description: "",
-  createdAt: "",
-  updatedAt: "",
+  imageUrl: '',
+  description: '',
+  createdAt: '',
+  updatedAt: '',
+  brand: { id: 0, name: '' },
+  category: { id: 0, name: '' }
 });
+
 const search = ref("");
 const showProductFormSidebar = ref(false);
 const toggleProductFormSidebar = useToggle(showProductFormSidebar);
@@ -58,7 +61,7 @@ const handleSearch = (searchTerm: string) => {
 
 </script>
 <template>
-  <Section class="flex flex-col gap-6 transition-all">
+  <Section class="flex flex-col gap-6 lg:gap-2 transition-all">
     <Spinner v-if="productStore.state.fetching" />
     <div v-else class="flex flex-col lg:flex-row items-center gap-2 transition-all">
       <div class="flex w-full lg:w-[350px] items-center gap-2">
@@ -70,8 +73,7 @@ const handleSearch = (searchTerm: string) => {
         Adicionar
         <Icon icon="plus" />
       </Button>
-      <Divider class="my-4 lg:hidden" />
-      <Pagination class="lg:ml-auto" />
+      <Pagination class="mt-4 lg:ml-auto lg:my-0" />
     </div>
     <ProductList v-if="!productStore.state.fetching" :products="filteredProducts" />
 

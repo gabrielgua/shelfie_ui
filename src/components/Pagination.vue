@@ -7,7 +7,7 @@ import ButtonIcon from './ButtonIcon.vue';
 </script>
 
 <template>
-  <div class="flex items-center rounded-2xl">
+  <div class="flex items-center rounded-2xl w-full lg:w-max justify-between md:justify-center">
     <ButtonIcon icon="angles-left" variant="primary-ghost" />
     <ButtonIcon icon="angle-left" variant="primary-ghost" />
     <Button variant="secondary-link" class="mx-2">1</Button>
