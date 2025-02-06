@@ -23,7 +23,6 @@ const toggleFloatingSidebar = useToggle(showFloatingSidebar);
     </div>
 
     <section class="flex items-center justify-between gap-6 p-6">
-      <!-- <HeaderPageInfo /> -->
       <Breadcrumb />
       <div class="hidden lg:block">
         <HeaderUserActions />
