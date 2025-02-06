@@ -8,6 +8,7 @@ import type { AxiosError } from 'axios'
 export const useProductStore = defineStore('product', () => {
   const PRODUCTS_URL = '/products'
   const products = ref<Product[]>([])
+  const product = ref<Product>()
 
   const state = reactive({ loading: false, error: false, fetching: false })
 
@@ -22,6 +23,22 @@ export const useProductStore = defineStore('product', () => {
           products.value = res.data
         })
         .catch((e) => console.log(e))
+        .finally(() => (state.fetching = false))
+    }, 500)
+  }
+
+  const findById = (productId: number) => {
+    state.fetching = true
+    setTimeout(() => {
+      http
+        .get(`${PRODUCTS_URL}/${productId}`)
+        .then((res) => {
+          product.value = res.data
+        })
+        .catch((e) => {
+          state.error = true
+          console.log(e)
+        })
         .finally(() => (state.fetching = false))
     }, 500)
   }
@@ -94,5 +111,5 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  return { products, state, fetch, edit, save, remove }
+  return { products, product, state, fetch, edit, save, remove, findById }
 })

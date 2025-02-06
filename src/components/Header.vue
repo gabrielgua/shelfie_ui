@@ -6,6 +6,7 @@ import HeaderUserActions from './header/HeaderUserActions.vue';
 import Logo from './Logo.vue';
 import FloatingSidebar from './sidebar/FloatingSidebar.vue';
 import { useToggle } from '@vueuse/core';
+import Breadcrumb from './Breadcrumb.vue';
 
 
 const showFloatingSidebar = ref(false);
@@ -22,7 +23,8 @@ const toggleFloatingSidebar = useToggle(showFloatingSidebar);
     </div>
 
     <section class="flex items-center justify-between gap-6 p-6">
-      <HeaderPageInfo />
+      <!-- <HeaderPageInfo /> -->
+      <Breadcrumb />
       <div class="hidden lg:block">
         <HeaderUserActions />
       </div>

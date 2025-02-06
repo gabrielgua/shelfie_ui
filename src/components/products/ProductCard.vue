@@ -59,9 +59,16 @@ const toggleProductFormSidebar = useToggle(showProductFormSidebar);
     <ProductCardSection label="registrado em" :content="formatDateDefault(new Date(createdAt))" />
     <ProductCardSection label="atualizado em" :content="formatDateDefault(new Date(updatedAt))" />
 
-    <section class="grid grid-cols-1 sm:grid-cols-2 xl:flex gap-2 lg:gap-4 w-full xl:w-max">
+    <section class="grid grid-cols-1 sm:grid-cols-3 xl:flex gap-2 lg:gap-4 w-full xl:w-max">
+      <RouterLink :to="`/products/${id}`">
+        <Button variant="secondary-outline">
+          <Icon icon="eye" />
+          Vizualizar
+        </Button>
+      </RouterLink>
       <Button variant="secondary" :click="edit">Editar</Button>
       <Button variant="danger-outline" :click="() => toggleRemoveProductModal()">Remover</Button>
+
     </section>
 
     <ModalConfirm :show="showRemoveProductModal" @close="toggleRemoveProductModal()" @confirm="handleRemoveConfirmed"

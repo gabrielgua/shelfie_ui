@@ -13,7 +13,20 @@ const router = createRouter({
         {
           path: '/products',
           name: 'Produtos',
-          component: () => import('../views/ProductView.vue'),
+          redirect: '/products/list',
+          component: () => import('../views/products/ProductsView.vue'),
+          children: [
+            {
+              path: 'list',
+              name: 'Listar',
+              component: () => import('../views/products/ProductListView.vue'),
+            },
+            {
+              path: ':productId(\\d+)',
+              name: 'Visualizar',
+              component: () => import('../views/products/ProductDetailsView.vue'),
+            },
+          ],
         },
       ],
     },

@@ -1,5 +1,6 @@
 import type { Brand } from './brand'
 import type { Category } from './category'
+import type { InventoryShort } from './inventory'
 
 export type Product = {
   id: number
@@ -12,6 +13,7 @@ export type Product = {
   description?: string
   createdAt: string
   updatedAt: string
+  inventory?: InventoryShort
 }
 
 export type ProductEdit = {
